@@ -93,7 +93,7 @@ The `optimize-images.py` script provides:
 
 ## Photo Gallery Manifest
 
-- Local photos live under `photos-optimized/boat-id/filename.jpg`.  
+- Local photos live under `photos-optimized/boat-id/filename.jpg` (generated; not committed to Git—see `.gitignore`).  
 - The gallery order/primary image is controlled by `data/photo-manifest.json`.  
 - Use the new **Photo Galleries** panel in `admin/index.html` to load a boat, reorder images, pick a primary photo, then download the updated JSON.  
 - Replace `data/photo-manifest.json` with your downloaded file (commit or upload it alongside the photos) to keep DreamHost in sync.

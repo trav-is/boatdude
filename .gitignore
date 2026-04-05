@@ -18,3 +18,6 @@ api/credentials.json
 
 inventory-backup.csv
 data/pontoonsonlyfeed.xml
+
+# Generated on demand; do not commit (large binaries)
+photos-optimized/

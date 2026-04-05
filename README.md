@@ -100,4 +100,6 @@ git push -u origin main
 
 DreamHost deploys whatever you upload or pull; keep `main` aligned with production when you deploy from Git.
 
+`photos-optimized/` is intentionally not in the repo (large binaries). Regenerate it locally with `optimize-images.py`, or upload that folder to the host if you use disk-based images; otherwise use image URLs from Sheets/CSV.
+
 — Built 2025-09-14
