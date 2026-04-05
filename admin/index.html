@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Tools — The Boat Dude</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .admin-wrap{max-width:900px;margin:2rem auto;padding:1rem}
+    .admin-card{background:#111;border:1px solid #333;border-radius:12px;padding:1rem;margin-bottom:1rem}
+    .admin-card h2{margin-top:0}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .grid-2 label{display:block;font-weight:600;margin:.25rem 0}
+    .grid-2 input,.grid-2 textarea,.grid-2 select{width:100%}
+    .row{display:flex;gap:.75rem;flex-wrap:wrap;align-items:center}
+    .pill{cursor:pointer}
+    .note{opacity:.8;font-size:.9rem}
+    .success{color:#4ade80}
+    .error{color:#f87171}
+    .gallery-list{margin-top:1rem}
+    .gallery-item{border:1px solid #333;border-radius:10px;padding:.75rem;margin-bottom:.75rem}
+    .gallery-item label{display:block;font-size:.85rem;margin-bottom:.25rem;text-transform:uppercase;letter-spacing:.05em}
+    .gallery-item input{width:100%;padding:.35rem .4rem;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:#1b1b1b;color:#f8f8f8}
+    .gallery-controls{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem}
+    .gallery-primary{background:#fcd34d;color:#000}
+  </style>
+  <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="Cache-Control" content="no-store">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <div class="wrap header-inner">
+      <a class="brand" href="../index.html" aria-label="Back to site">
+        <img src="../assets/logo/the_boat_dude_1.PNG" alt="The Boat Dude Logo" class="logo" width="80" height="80" />
+        <div class="brand-text">
+          <div class="brand-title"><strong>Admin Tools</strong></div>
+          <span>Inventory Sheet</span>
+        </div>
+      </a>
+    </div>
+  </header>
+
+  <main class="admin-wrap" id="main" role="main">
+    <section class="admin-card" aria-labelledby="csv-heading">
+      <h2 id="csv-heading">CSV Data</h2>
+      <div class="row" style="margin:.5rem 0 1rem">
+        <input id="csvFile" type="file" accept=".csv,text/csv" aria-label="Choose CSV file">
+        <button id="importCsv" class="pill">Import CSV</button>
+        <button id="downloadCsv" class="pill">Download CSV</button>
+        <button id="pushToSheets" class="pill" style="background:#4ade80;color:#000">Push to Google Sheets</button>
+        <button id="pullFromSheets" class="pill" style="background:#3b82f6;color:#fff">Pull from Google Sheets</button>
+        <button id="clearAll" class="pill secondary">Clear All (Local)</button>
+        <span id="csvMsg" class="note" role="status" aria-live="polite"></span>
+      </div>
+      <p class="note">Data is stored locally in your browser. Use Download to save a copy.</p>
+      <div style="margin-top:1rem">
+        <strong>Entries:</nstrong> <span id="entriesCount">0</span>
+        <div style="overflow:auto; margin-top:.5rem">
+          <table id="entriesTable" style="width:100%; border-collapse:collapse">
+            <thead>
+              <tr>
+                <th style="text-align:left; padding:.25rem .5rem">ID</th>
+                <th style="text-align:left; padding:.25rem .5rem">Title</th>
+                <th style="text-align:left; padding:.25rem .5rem">Status</th>
+                <th style="text-align:left; padding:.25rem .5rem">Price</th>
+                <th style="text-align:left; padding:.25rem .5rem">Year</th>
+                <th style="text-align:left; padding:.25rem .5rem">Make</th>
+                <th style="text-align:left; padding:.25rem .5rem">Model</th>
+                <th style="text-align:left; padding:.25rem .5rem">Share</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="admin-card" aria-labelledby="append-heading">
+      <h2 id="append-heading">Add Listing (Append Row)</h2>
+      <form id="appendForm">
+        <div class="grid-2">
+          <div>
+            <label for="id">ID</label>
+            <input id="id" name="id" required placeholder="e.g., boat-007">
+          </div>
+          <div>
+            <label for="status">Status</label>
+            <select id="status" name="status">
+              <option value="available">available</option>
+              <option value="pending">pending</option>
+              <option value="sold">sold</option>
+            </select>
+          </div>
+          <div>
+            <label for="title">Title</label>
+            <input id="title" name="title" placeholder="Shown on card">
+          </div>
+          <div>
+            <label for="price">Price (number)</label>
+            <input id="price" name="price" type="number" step="1" placeholder="19999">
+          </div>
+          <div>
+            <label for="year">Year</label>
+            <input id="year" name="year" type="number">
+          </div>
+          <div>
+            <label for="make">Make</label>
+            <input id="make" name="make">
+          </div>
+          <div>
+            <label for="model">Model</label>
+            <input id="model" name="model">
+          </div>
+          <div>
+            <label for="gallery_urls">Gallery URLs (comma separated)</label>
+            <textarea id="gallery_urls" name="gallery_urls" rows="3" placeholder="https://... , https://..."></textarea>
+          </div>
+        </div>
+        <div class="row" style="margin-top:1rem">
+          <button class="pill" type="submit">Append Row</button>
+          <span id="appendMsg" class="note" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+    </section>
+
+    <section class="admin-card" aria-labelledby="update-heading">
+      <h2 id="update-heading">Update Listing (By ID)</h2>
+      <form id="updateForm">
+        <div class="grid-2">
+          <div>
+            <label for="u_id">ID (required)</label>
+            <input id="u_id" name="id" required placeholder="boat-007">
+          </div>
+          <div>
+            <label for="u_field">Field</label>
+            <select id="u_field" name="field">
+              <option value="status">status</option>
+              <option value="price">price</option>
+              <option value="title">title</option>
+              <option value="gallery_urls">gallery_urls</option>
+              <option value="published">published</option>
+            </select>
+          </div>
+          <div>
+            <label for="u_value">Value</label>
+            <input id="u_value" name="value" placeholder="e.g., sold">
+          </div>
+        </div>
+        <div class="row" style="margin-top:1rem">
+          <button class="pill" type="submit">Update Row</button>
+          <span id="updateMsg" class="note" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+    </section>
+
+    <section class="admin-card" aria-labelledby="gallery-heading">
+      <h2 id="gallery-heading">Photo Galleries (Local Photos)</h2>
+      <p class="note">tweak the manifest that powers <code>data/photo-manifest.json</code>. when you&apos;re done, download the json and replace the file before deploying.</p>
+      <div class="row" style="margin-bottom:.5rem">
+        <input id="galleryBoatId" placeholder="boat-001" aria-label="Boat ID">
+        <select id="galleryBoatSelect" aria-label="Existing boats">
+          <option value="">load existing...</option>
+        </select>
+        <button id="galleryLoad" class="pill">Load Boat</button>
+      </div>
+      <div class="row" style="margin-bottom:.5rem">
+        <input id="galleryNewFile" placeholder="boat-001-026.jpg" aria-label="Filename">
+        <input id="galleryNewAlt" placeholder="optional alt text" aria-label="Alt text">
+        <button id="galleryAddPhoto" class="pill">Add Photo</button>
+      </div>
+      <div id="galleryList" class="gallery-list" aria-live="polite"></div>
+      <div class="row" style="margin-top:1rem">
+        <button id="gallerySaveBoat" class="pill">Save Boat Changes</button>
+        <span id="galleryMsg" class="note" role="status" aria-live="polite"></span>
+      </div>
+      <hr style="border:none;border-top:1px solid #333;margin:1rem 0">
+      <div class="row">
+        <input id="galleryImport" type="file" accept="application/json" aria-label="Import JSON file">
+        <button id="galleryImportBtn" class="pill secondary">Import JSON</button>
+        <button id="galleryDownload" class="pill">Download JSON</button>
+        <button id="galleryReset" class="pill secondary">Reset From Disk</button>
+      </div>
+      <p class="note">changes are saved in your browser so you can mess around safely.</p>
+    </section>
+  </main>
+
+  <script src="admin.js" defer></script>
+</body>
+</html>
+
+

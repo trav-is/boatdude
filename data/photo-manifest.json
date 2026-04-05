@@ -1,0 +1,555 @@
+{
+  "updated_at": "",
+  "boats": {
+    "boat-001": [
+      {
+        "file": "/photos-optimized/boat-001/boat-001-001.jpg",
+        "photo_alt": "",
+        "photo_order": 1,
+        "is_primary": true
+      },
+      {
+        "file": "/photos-optimized/boat-001/boat-001-002.jpg",
+        "photo_alt": "",
+        "photo_order": 2,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-001/boat-001-003.jpg",
+        "photo_alt": "",
+        "photo_order": 3,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-001/boat-001-004.jpg",
+        "photo_alt": "",
+        "photo_order": 4,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-001/boat-001-005.jpg",
+        "photo_alt": "",
+        "photo_order": 5,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-001/boat-001-006.jpg",
+        "photo_alt": "",
+        "photo_order": 6,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-001/boat-001-007.jpg",
+        "photo_alt": "",
+        "photo_order": 7,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-001/boat-001-008.jpg",
+        "photo_alt": "",
+        "photo_order": 8,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-001/boat-001-009.jpg",
+        "photo_alt": "",
+        "photo_order": 9,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-001/boat-001-010.jpg",
+        "photo_alt": "",
+        "photo_order": 10,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-001/boat-001-011.jpg",
+        "photo_alt": "",
+        "photo_order": 11,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-001/boat-001-012.jpg",
+        "photo_alt": "",
+        "photo_order": 12,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-001/boat-001-013.jpg",
+        "photo_alt": "",
+        "photo_order": 13,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-001/boat-001-014.jpg",
+        "photo_alt": "",
+        "photo_order": 14,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-001/boat-001-015.jpg",
+        "photo_alt": "",
+        "photo_order": 15,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-001/boat-001-016.jpg",
+        "photo_alt": "",
+        "photo_order": 16,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-001/boat-001-017.jpg",
+        "photo_alt": "",
+        "photo_order": 17,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-001/boat-001-018.jpg",
+        "photo_alt": "",
+        "photo_order": 18,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-001/boat-001-019.jpg",
+        "photo_alt": "",
+        "photo_order": 19,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-001/boat-001-020.jpg",
+        "photo_alt": "",
+        "photo_order": 20,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-001/boat-001-021.jpg",
+        "photo_alt": "",
+        "photo_order": 21,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-001/boat-001-022.jpg",
+        "photo_alt": "",
+        "photo_order": 22,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-001/boat-001-023.jpg",
+        "photo_alt": "",
+        "photo_order": 23,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-001/boat-001-024.jpg",
+        "photo_alt": "",
+        "photo_order": 24,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-001/boat-001-025.jpg",
+        "photo_alt": "",
+        "photo_order": 25,
+        "is_primary": false
+      }
+    ],
+    "boat-002": [
+      {
+        "file": "/photos-optimized/boat-002/boat-002-001.jpg",
+        "photo_alt": "",
+        "photo_order": 1,
+        "is_primary": true
+      },
+      {
+        "file": "/photos-optimized/boat-002/boat-002-002.jpg",
+        "photo_alt": "",
+        "photo_order": 2,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-002/boat-002-003.jpg",
+        "photo_alt": "",
+        "photo_order": 3,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-002/boat-002-004.jpg",
+        "photo_alt": "",
+        "photo_order": 4,
+        "is_primary": false
+      }
+    ],
+    "boat-003": [
+      {
+        "file": "/photos-optimized/boat-003/boat-003-001.jpg",
+        "photo_alt": "",
+        "photo_order": 1,
+        "is_primary": true
+      },
+      {
+        "file": "/photos-optimized/boat-003/boat-003-002.jpg",
+        "photo_alt": "",
+        "photo_order": 2,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-003/boat-003-003.jpg",
+        "photo_alt": "",
+        "photo_order": 3,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-003/boat-003-004.jpg",
+        "photo_alt": "",
+        "photo_order": 4,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-003/boat-003-005.jpg",
+        "photo_alt": "",
+        "photo_order": 5,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-003/boat-003-006.jpg",
+        "photo_alt": "",
+        "photo_order": 6,
+        "is_primary": false
+      }
+    ],
+    "boat-004": [
+      {
+        "file": "/photos-optimized/boat-004/boat-004-001.jpg",
+        "photo_alt": "",
+        "photo_order": 1,
+        "is_primary": true
+      },
+      {
+        "file": "/photos-optimized/boat-004/boat-004-002.jpg",
+        "photo_alt": "",
+        "photo_order": 2,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-004/boat-004-003.jpg",
+        "photo_alt": "",
+        "photo_order": 3,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-004/boat-004-004.jpg",
+        "photo_alt": "",
+        "photo_order": 4,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-004/boat-004-005.jpg",
+        "photo_alt": "",
+        "photo_order": 5,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-004/boat-004-006.jpg",
+        "photo_alt": "",
+        "photo_order": 6,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-004/boat-004-007.jpg",
+        "photo_alt": "",
+        "photo_order": 7,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-004/boat-004-008.jpg",
+        "photo_alt": "",
+        "photo_order": 8,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-004/boat-004-009.jpg",
+        "photo_alt": "",
+        "photo_order": 9,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-004/boat-004-010.jpg",
+        "photo_alt": "",
+        "photo_order": 10,
+        "is_primary": false
+      }
+    ],
+    "boat-005": [
+      {
+        "file": "/photos-optimized/boat-005/boat-005-001.jpg",
+        "photo_alt": "",
+        "photo_order": 1,
+        "is_primary": true
+      },
+      {
+        "file": "/photos-optimized/boat-005/boat-005-002.jpg",
+        "photo_alt": "",
+        "photo_order": 2,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-005/boat-005-003.jpg",
+        "photo_alt": "",
+        "photo_order": 3,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-005/boat-005-004.jpg",
+        "photo_alt": "",
+        "photo_order": 4,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-005/boat-005-005.jpg",
+        "photo_alt": "",
+        "photo_order": 5,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-005/boat-005-006.jpg",
+        "photo_alt": "",
+        "photo_order": 6,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-005/boat-005-007.jpg",
+        "photo_alt": "",
+        "photo_order": 7,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-005/boat-005-008.jpg",
+        "photo_alt": "",
+        "photo_order": 8,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-005/boat-005-009.jpg",
+        "photo_alt": "",
+        "photo_order": 9,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-005/boat-005-010.jpg",
+        "photo_alt": "",
+        "photo_order": 10,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-005/boat-005-011.jpg",
+        "photo_alt": "",
+        "photo_order": 11,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-005/boat-005-012.jpg",
+        "photo_alt": "",
+        "photo_order": 12,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-005/boat-005-013.jpg",
+        "photo_alt": "",
+        "photo_order": 13,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-005/boat-005-014.jpg",
+        "photo_alt": "",
+        "photo_order": 14,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-005/boat-005-015.jpg",
+        "photo_alt": "",
+        "photo_order": 15,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-005/boat-005-016.jpg",
+        "photo_alt": "",
+        "photo_order": 16,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-005/boat-005-017.jpg",
+        "photo_alt": "",
+        "photo_order": 17,
+        "is_primary": false
+      }
+    ],
+    "boat-006": [
+      {
+        "file": "/photos-optimized/boat-006/boat-006-001.jpg",
+        "photo_alt": "",
+        "photo_order": 1,
+        "is_primary": true
+      },
+      {
+        "file": "/photos-optimized/boat-006/boat-006-002.jpg",
+        "photo_alt": "",
+        "photo_order": 2,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-006/boat-006-003.jpg",
+        "photo_alt": "",
+        "photo_order": 3,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-006/boat-006-004.jpg",
+        "photo_alt": "",
+        "photo_order": 4,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-006/boat-006-005.jpg",
+        "photo_alt": "",
+        "photo_order": 5,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-006/boat-006-006.jpg",
+        "photo_alt": "",
+        "photo_order": 6,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-006/boat-006-007.jpg",
+        "photo_alt": "",
+        "photo_order": 7,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-006/boat-006-008.jpg",
+        "photo_alt": "",
+        "photo_order": 8,
+        "is_primary": false
+      }
+    ],
+    "boat-007": [
+      {
+        "file": "/photos-optimized/boat-007/boat-007-001.jpg",
+        "photo_alt": "",
+        "photo_order": 1,
+        "is_primary": true
+      },
+      {
+        "file": "/photos-optimized/boat-007/boat-007-002.jpg",
+        "photo_alt": "",
+        "photo_order": 2,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-007/boat-007-003.jpg",
+        "photo_alt": "",
+        "photo_order": 3,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-007/boat-007-004.jpg",
+        "photo_alt": "",
+        "photo_order": 4,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-007/boat-007-005.jpg",
+        "photo_alt": "",
+        "photo_order": 5,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-007/boat-007-006.jpg",
+        "photo_alt": "",
+        "photo_order": 6,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-007/boat-007-007.jpg",
+        "photo_alt": "",
+        "photo_order": 7,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-007/boat-007-008.jpg",
+        "photo_alt": "",
+        "photo_order": 8,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-007/boat-007-009.jpg",
+        "photo_alt": "",
+        "photo_order": 9,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-007/boat-007-010.jpg",
+        "photo_alt": "",
+        "photo_order": 10,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-007/boat-007-011.jpg",
+        "photo_alt": "",
+        "photo_order": 11,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-007/boat-007-012.jpg",
+        "photo_alt": "",
+        "photo_order": 12,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-007/boat-007-013.jpg",
+        "photo_alt": "",
+        "photo_order": 13,
+        "is_primary": false
+      }
+    ],
+    "boat-008": [
+      {
+        "file": "/photos-optimized/boat-008/boat-008-001.jpg",
+        "photo_alt": "",
+        "photo_order": 1,
+        "is_primary": true
+      },
+      {
+        "file": "/photos-optimized/boat-008/boat-008-002.jpg",
+        "photo_alt": "",
+        "photo_order": 2,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-008/boat-008-003.jpg",
+        "photo_alt": "",
+        "photo_order": 3,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-008/boat-008-004.jpg",
+        "photo_alt": "",
+        "photo_order": 4,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-008/boat-008-005.jpg",
+        "photo_alt": "",
+        "photo_order": 5,
+        "is_primary": false
+      },
+      {
+        "file": "/photos-optimized/boat-008/boat-008-006.jpg",
+        "photo_alt": "",
+        "photo_order": 6,
+        "is_primary": false
+      }
+    ]
+  }
+}

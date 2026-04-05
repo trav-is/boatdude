@@ -1,0 +1,20 @@
+.DS_Store
+*.log
+.env
+.Python
+*.py[cod]
+*.pyd
+
+node_modules/
+venv/
+.venv/
+env/
+
+# Google Sheets API (if you add server-side tooling)
+api/credentials.json
+
+# Optional large pull artifacts (uncomment if you prefer not to commit snapshots)
+# data/exports/onlyinboards-snapshot.json
+
+inventory-backup.csv
+data/pontoonsonlyfeed.xml

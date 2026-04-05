@@ -1,0 +1,17 @@
+# no listing this folder
+Options -Indexes
+
+# tell bots to ignore this dir
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow, noarchive"
+</IfModule>
+
+# basic auth — set AuthUserFile to the absolute path of admin/.htpasswd on your host
+AuthType Basic
+AuthName "admin"
+AuthBasicProvider file
+# replace this with your absolute path, e.g.: /home/USER/example.com/admin/.htpasswd
+AuthUserFile "/path/to/your/webroot/admin/.htpasswd"
+Require valid-user
+
+
