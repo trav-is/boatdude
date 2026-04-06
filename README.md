@@ -1,11 +1,11 @@
 # The Boat Dude — No‑Build MVP
 
-A clean, mobile‑first gallery to list boats & PWCs. No backend required. The live app loads **CSV**: either **local export files** (dev) or **Google Sheets “publish to web” CSV URLs** (prod). Sample static data still lives in `data/boats.json` for reference; the current UI uses the CSV pipeline in `app.js`.
+A clean, mobile‑first gallery to list boats & PWCs. No backend required. The app loads inventory from **Google Sheets “publish to web” CSV URLs** set in `app.js` (`SHEET_CSV_URL`, `PHOTO_GALLERY_CSV_URL`). Legacy sample JSON may still exist under `data/` for reference only.
 
 ## Quick Start (Local dev)
 1. `python3 -m http.server 8080` from this folder.
-2. On `localhost`, `app.js` uses the `local` profile: `data/exports/boats-sheet.csv` + `data/exports/photos-sheet.csv` (generate them with `scripts/pull_marketplace.py` or paste from Sheets).
-3. Open `http://localhost:8080` — inventory loads from those CSVs.
+2. Open `http://localhost:8080` — inventory loads from the **same published Google Sheet CSVs** as production (`SHEET_CSV_URL` / `PHOTO_GALLERY_CSV_URL` in `app.js`; needs network).
+3. To pull marketplace listings into the same columns your sheet uses, run `scripts/pull_marketplace.py` and **import** the generated CSVs into Google Sheets (then the live site sees updates after publish refreshes).
 
 ## Switch to Google Sheets (Phone‑friendly updates)
 This lets anyone update inventory from their phone. The site reads a published CSV of your Sheet.
@@ -13,7 +13,7 @@ This lets anyone update inventory from their phone. The site reads a published C
 1. **Make a copy of the template:** Import `data/boats-template.csv` into Google Sheets. Keep the column headers as‑is.
 2. **Fill rows** for each listing. Put multiple image URLs in `gallery_urls` separated by commas. (Tip: store photos in Google Drive, then use the shareable file link converted to a direct image link e.g. `https://drive.google.com/uc?export=view&id=FILE_ID`)
 3. **Publish as CSV:** In Google Sheets, go to **File → Share → Publish to web**. Choose **Link**, select the sheet/tab, and choose **CSV** format. Copy the URL.
-4. **Paste URLs into the prod profile:** Open `app.js`, find `PROFILES.prod`, and set `boatsCsvUrl` / `photosCsvUrl` to your two published CSV links.
+4. **Paste URLs into `app.js`:** Set `SHEET_CSV_URL` and `PHOTO_GALLERY_CSV_URL` to your two published CSV links.
 5. **Deploy** the site. Each time you update the Google Sheet, the website reflects the changes on refresh (no rebuild needed).
 
 > If your Sheet has a `status` column of `sold` the card will gray out. `pending` shows an amber badge. Anything else is considered `available`.
@@ -96,15 +96,6 @@ Notes:
 - **PontoonsOnly:** IDs are `po-<id>` from `_i####` URLs. Use `--source` with a dealer keyword search (e.g. `…/search?k=boatdudedeals`) to harvest page 1, or pass listings with `--listing-url` / `--urls-file`. Search results beyond page 1 use form postback, so the script warns and you add more listing URLs manually when needed.
 - Script defaults to `published=Y`, `status=available`.
 - `--id-prefix` overrides auto `oib` / `po` per host if you merge feeds into one sheet.
-
-### Runtime Environment Switch (Local vs DreamHost/Prod)
-`app.js` now has two profiles:
-- `local` (default on `localhost`): reads `data/exports/boats-sheet.csv` and `data/exports/photos-sheet.csv`
-- `prod` (default on non-localhost): reads Google Sheets published CSV URLs
-
-You can override profile with query param:
-- Local CSV mode: `http://localhost:8080/?env=local`
-- Force prod mode locally: `http://localhost:8080/?env=prod`
 
 ## Upgrading Later (No‑Database CMS)
 When you’re ready for a friendlier editor with image uploads:

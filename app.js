@@ -1,92 +1,16 @@
 /* the boat dude — mvp inventory
- * no-build static site. switch data to google sheets by pasting a published csv url below.
- * readme has the quick steps.
+ * no-build static site. published Google Sheet CSVs (see README to change URLs).
  */
 
-// env detection
-const isLocalhost = window.location.hostname === 'localhost' ||
-                   window.location.hostname === '127.0.0.1' ||
-                   window.location.hostname === '';
-
-const PROFILES = {
-  // Local preview from generated pull CSV exports.
-  local: {
-    boatsCsvUrl: "/data/exports/boats-sheet.csv",
-    photosCsvUrl: "/data/exports/photos-sheet.csv",
-    useLocalPhotos: false
-  },
-  // Production/DreamHost profile backed by Google Sheets.
-  prod: {
-    boatsCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR8cbFH69KDvgM4QbH3NN9dV00YCQC9Oq9D2QXTK9n6bAqOK0UYWp5xvscLr-Gcq6g4AKKOYlb4bgcW/pub?gid=1493982002&single=true&output=csv",
-    photosCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQBSowD7wrpoH7pCeO101ak6sTPuf9N7D-r8e0exZMKplbePvFbubCHTCyaatRXKom_Y3AZ94EnGU4o/pub?gid=1143386091&single=true&output=csv",
-    useLocalPhotos: false
-  }
-};
-
-function resolveProfileName() {
-  const params = new URLSearchParams(window.location.search);
-  const envParam = (params.get("env") || "").toLowerCase();
-  if (envParam && PROFILES[envParam]) return envParam;
-  return isLocalhost ? "local" : "prod";
-}
-
-const ACTIVE_PROFILE = resolveProfileName();
-const ACTIVE_CONFIG = PROFILES[ACTIVE_PROFILE];
-
-// config based on active profile
-const SHEET_CSV_URL = ACTIVE_CONFIG.boatsCsvUrl;
-const PHOTO_GALLERY_CSV_URL = ACTIVE_CONFIG.photosCsvUrl;
-const LOCAL_PHOTO_MANIFEST_URL = "/data/photo-manifest.json";
+const SHEET_CSV_URL =
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vR8cbFH69KDvgM4QbH3NN9dV00YCQC9Oq9D2QXTK9n6bAqOK0UYWp5xvscLr-Gcq6g4AKKOYlb4bgcW/pub?gid=1493982002&single=true&output=csv";
+const PHOTO_GALLERY_CSV_URL =
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQBSowD7wrpoH7pCeO101ak6sTPuf9N7D-r8e0exZMKplbePvFbubCHTCyaatRXKom_Y3AZ94EnGU4o/pub?gid=1143386091&single=true&output=csv";
 const GLOBAL_PHONE = "+704.957.0900";
 const GLOBAL_EMAIL = "info@boatdudedeals.com";
 
 // cache setup
 const CACHE_DURATION = 30000; // 30 seconds cache for development, longer for production
-
-// figure out which photo source to use
-const useLocalPhotos = ACTIVE_CONFIG.useLocalPhotos;
-
-// init app
-
-// quick helper to grab local photos if they exist
-async function getLocalPhotos(boatId) {
-  if (!useLocalPhotos) return [];
-  
-  const photos = [];
-  let consecutiveMisses = 0;
-  const maxConsecutiveMisses = 3; // stop checking after 3 misses in a row
-  
-  // Always use absolute path so deep links like /inventory/boat/:id work
-  const photoBasePath = '/photos-optimized';
-  
-  // check for photos 001-025 and only include ones that exist
-  for (let i = 1; i <= 25; i++) {
-    const paddedIndex = String(i).padStart(3, '0');
-    const photoPath = `${photoBasePath}/${boatId}/${boatId}-${paddedIndex}.jpg`;
-    
-    try {
-      const response = await fetch(photoPath, { method: 'HEAD' });
-      if (response.ok) {
-        photos.push(photoPath);
-        consecutiveMisses = 0; // reset on success
-      } else {
-        consecutiveMisses++;
-        // if we missed a few in a row and we already have some, we're probably done
-        if (consecutiveMisses >= maxConsecutiveMisses && photos.length > 0) {
-          break;
-        }
-      }
-    } catch (e) {
-      consecutiveMisses++;
-      // same deal on errors
-      if (consecutiveMisses >= maxConsecutiveMisses && photos.length > 0) {
-        break;
-      }
-    }
-  }
-  
-  return photos;
-}
 
 const state = {
   boats: [],
@@ -164,7 +88,7 @@ async function loadBoats(){
       return;
     }
 
-    // fetch published Google Sheets CSV (same flow for dev/prod)
+    // fetch published Google Sheets boats CSV
     const response = await fetch(getCacheBustingURL(SHEET_CSV_URL), { 
       cache: "no-store",
       redirect: "follow",
@@ -200,112 +124,49 @@ function updateFilteredBoats() {
 }
 
 async function loadPhotoGalleries(){
-  if (useLocalPhotos) {
-    await applyLocalPhotoManifest();
-  } else {
-    // Fallback to Google Sheets for remote photo URLs
-    if (PHOTO_GALLERY_CSV_URL && PHOTO_GALLERY_CSV_URL.trim().length > 0) {
-      try {
-        const csv = await fetch(PHOTO_GALLERY_CSV_URL, { 
-          cache: "no-store",
-          redirect: "follow"
-        }).then(r => r.text());
-        const photos = parsePhotoGalleryCSV(csv);
-        
-        // Group photos by boat_id
-        state.photoGalleries = {};
-        photos.forEach(photo => {
-          if (!state.photoGalleries[photo.boat_id]) {
-            state.photoGalleries[photo.boat_id] = [];
+  if (PHOTO_GALLERY_CSV_URL && PHOTO_GALLERY_CSV_URL.trim().length > 0) {
+    try {
+      const csv = await fetch(PHOTO_GALLERY_CSV_URL, { 
+        cache: "no-store",
+        redirect: "follow"
+      }).then(r => r.text());
+      const photos = parsePhotoGalleryCSV(csv);
+      
+      // Group photos by boat_id
+      state.photoGalleries = {};
+      photos.forEach(photo => {
+        if (!state.photoGalleries[photo.boat_id]) {
+          state.photoGalleries[photo.boat_id] = [];
+        }
+        state.photoGalleries[photo.boat_id].push(photo);
+      });
+      
+      // Sort photos by order within each boat
+      Object.keys(state.photoGalleries).forEach(boatId => {
+        state.photoGalleries[boatId].sort((a, b) => a.photo_order - b.photo_order);
+      });
+      
+      // Update boats with photo gallery data
+      state.boats.forEach(boat => {
+        if (state.photoGalleries[boat.id]) {
+          boat.gallery = state.photoGalleries[boat.id].map(photo => photo.photo_url);
+          boat.photoDetails = state.photoGalleries[boat.id];
+          
+          // Set primary image from photo gallery (photo with is_primary = true)
+          const primaryPhoto = state.photoGalleries[boat.id].find(photo => photo.is_primary);
+          if (primaryPhoto) {
+            boat.primary_image = primaryPhoto.photo_url;
           }
-          state.photoGalleries[photo.boat_id].push(photo);
-        });
-        
-        // Sort photos by order within each boat
-        Object.keys(state.photoGalleries).forEach(boatId => {
-          state.photoGalleries[boatId].sort((a, b) => a.photo_order - b.photo_order);
-        });
-        
-        // Update boats with photo gallery data
-        state.boats.forEach(boat => {
-          if (state.photoGalleries[boat.id]) {
-            boat.gallery = state.photoGalleries[boat.id].map(photo => photo.photo_url);
-            boat.photoDetails = state.photoGalleries[boat.id];
-            
-            // Set primary image from photo gallery (photo with is_primary = true)
-            const primaryPhoto = state.photoGalleries[boat.id].find(photo => photo.is_primary);
-            if (primaryPhoto) {
-              boat.primary_image = primaryPhoto.photo_url;
-            }
-          }
-        });
-      } catch (e) {
-        console.warn("Failed to load photo galleries:", e);
-      }
+        }
+      });
+    } catch (e) {
+      console.warn("Failed to load photo galleries:", e);
     }
   }
   
-  // Re-render cards after photo galleries are loaded
-  // Apply published filter based on environment
   state.filtered = state.boats.filter(b => b.published);
   
   renderCards(state.filtered);
-}
-
-async function applyLocalPhotoManifest(){
-  try {
-    const response = await fetch(getCacheBustingURL(LOCAL_PHOTO_MANIFEST_URL), {
-      cache: "no-store"
-    });
-    if (!response.ok) {
-      return;
-    }
-    const manifest = await response.json();
-    const boatsMap = manifest.boats || {};
-    state.photoGalleries = {};
-    Object.keys(boatsMap).forEach(boatId => {
-      const entries = Array.isArray(boatsMap[boatId]) ? boatsMap[boatId] : [];
-      const normalized = entries.map((photo, index) => {
-        const url = normalizeLocalPhotoUrl(photo.file || photo.photo_url || "");
-        return {
-          boat_id: boatId,
-          photo_url: url,
-          photo_alt: photo.photo_alt || photo.alt || "",
-          photo_order: typeof photo.photo_order === "number" ? photo.photo_order : index + 1,
-          is_primary: photo.is_primary === true || String(photo.is_primary).toLowerCase() === "true"
-        };
-      }).filter(item => item.photo_url);
-      if (normalized.length) {
-        normalized.sort((a, b) => a.photo_order - b.photo_order);
-        state.photoGalleries[boatId] = normalized;
-      }
-    });
-    state.boats.forEach(boat => {
-      const manifestPhotos = state.photoGalleries[boat.id];
-      if (manifestPhotos && manifestPhotos.length) {
-        boat.gallery = manifestPhotos.map(photo => photo.photo_url);
-        boat.photoDetails = manifestPhotos;
-        
-        const primaryPhoto = manifestPhotos.find(photo => photo.is_primary) || manifestPhotos[0];
-        if (primaryPhoto) {
-          boat.primary_image = primaryPhoto.photo_url;
-        }
-      }
-    });
-  } catch (err) {
-    console.warn("Photo manifest not available:", err);
-  }
-}
-
-function normalizeLocalPhotoUrl(url){
-  if (!url) return "";
-  if (url.startsWith('http://') || url.startsWith('https://')) {
-    return url;
-  }
-  if (!url.startsWith('/')) {
-    return `/${url.replace(/^\/+/, '')}`;
-  }
-  return url;
 }
 
 function parsePhotoGalleryCSV(csv){
@@ -356,20 +217,9 @@ async function normalizeBoats(boats){
     if (isNaN(created.getTime())) {
       created = new Date(Date.now() - i * 86400000);
     }
-    // Use local photos in development, Google Drive URLs in production
-    const boatId = clean(b.id || `item-${i+1}`);
-    let gallery, primary;
-    
-    if (useLocalPhotos) {
-      // Use local photos (development or production with flag enabled)
-      gallery = await getLocalPhotos(boatId);
-      primary = gallery[0] || '';
-    } else {
-      // Use Google Drive URLs from spreadsheet
-      gallery = Array.isArray(b.gallery) ? b.gallery.filter(Boolean) :
-        clean(b.gallery_urls || b.gallery || "").split(/[\s]*,[\s]*/).filter(Boolean);
-      primary = clean(b.primary_image || b.primary_image_url || gallery[0] || "");
-    }
+    let gallery = Array.isArray(b.gallery) ? b.gallery.filter(Boolean) :
+      clean(b.gallery_urls || b.gallery || "").split(/[\s]*,[\s]*/).filter(Boolean);
+    let primary = clean(b.primary_image || b.primary_image_url || gallery[0] || "");
     const phone = clean(b.contact_phone || GLOBAL_PHONE);
     const email = clean(b.contact_email || GLOBAL_EMAIL);
     // Handle published field - Y/N binary column
