@@ -18,6 +18,10 @@ api/credentials.json
 
 inventory-backup.csv
 data/pontoonsonlyfeed.xml
+pontoonsonlyfeed*.xml
+
+# Local scrape / debug HTML
+tmp-po-*.html
 
 # Generated on demand; do not commit (large binaries)
 photos-optimized/
