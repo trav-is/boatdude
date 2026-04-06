@@ -49,25 +49,53 @@ This lets anyone update inventory from their phone. The site reads a published C
 ## Pull Inventory From Marketplace (Sheets-Compatible)
 If production currently reads Google Sheets, keep that flow and generate fresh CSVs to paste/import into your two sheet tabs.
 
-Run:
+CSV outputs default to `data/exports/boats-sheet.csv` and `data/exports/photos-sheet.csv` unless you pass `--boats-out` / `--photos-out`.
+
+**Shortest run:** with no URL flags, the script pulls the default OnlyInboards dealer profile and PontoonsOnly `k=boatdudedeals` search (same two feeds as below):
+
+```bash
+python3 scripts/pull_marketplace.py
+```
+
+Run **both** marketplaces from clean inventory/search URLs (repeat `--source` per site) when you want to override:
 
 ```bash
 python3 scripts/pull_marketplace.py \
-  --dealer-url "https://onlyinboards.com/dealeruserprofile/80113" \
-  --boats-out "data/exports/boats-sheet.csv" \
-  --photos-out "data/exports/photos-sheet.csv" \
-  --snapshot-out "data/exports/onlyinboards-snapshot.json"
+  --source "https://onlyinboards.com/dealeruserprofile/80113" \
+  --source "https://www.pontoonsonly.com/search?k=boatdudedeals" \
+  --snapshot-out "data/exports/marketplace-snapshot.json"
+```
+
+OnlyInboards-only (same as one `--source` above; `--dealer-url` still works as a deprecated alias):
+
+```bash
+python3 scripts/pull_marketplace.py \
+  --dealer-url "https://onlyinboards.com/dealeruserprofile/80113"
+```
+
+PontoonsOnly extras — explicit listing lines or a file when you do not use search (or for page 2+ of search):
+
+```bash
+# Option A — repeat flag
+python3 scripts/pull_marketplace.py \
+  --listing-url "https://www.pontoonsonly.com/2024-Premier-for-sale-in-Cornelius-NorthCarolina_i25518" \
+  --listing-url "https://www.pontoonsonly.com/2025-Some-Other-Pontoon_i99999"
+
+# Option B — one URL per line in a file (# starts a comment)
+python3 scripts/pull_marketplace.py \
+  --urls-file "data/pontoons-urls.txt"
 ```
 
 What this gives you:
 - `data/exports/boats-sheet.csv` for your Boats tab
 - `data/exports/photos-sheet.csv` for your Photo Gallery tab
-- `data/exports/onlyinboards-snapshot.json` for audit/debug
+- `data/exports/marketplace-snapshot.json` (or any path you pass) for audit/debug
 
 Notes:
-- IDs are stable as `oib-<listing_id>` so re-runs keep matching rows.
-- Script currently pulls active listings and defaults to `published=Y`, `status=available`.
-- You can reuse it for other similar sites by changing `--dealer-url` (example: PontoonsOnly dealer URL).
+- **OnlyInboards:** IDs are `oib-<numeric_id>`; use `--source` with your dealer profile URL.
+- **PontoonsOnly:** IDs are `po-<id>` from `_i####` URLs. Use `--source` with a dealer keyword search (e.g. `…/search?k=boatdudedeals`) to harvest page 1, or pass listings with `--listing-url` / `--urls-file`. Search results beyond page 1 use form postback, so the script warns and you add more listing URLs manually when needed.
+- Script defaults to `published=Y`, `status=available`.
+- `--id-prefix` overrides auto `oib` / `po` per host if you merge feeds into one sheet.
 
 ### Runtime Environment Switch (Local vs DreamHost/Prod)
 `app.js` now has two profiles:
