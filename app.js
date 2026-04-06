@@ -1,11 +1,10 @@
 /* the boat dude — mvp inventory
- * no-build static site. published Google Sheet CSVs (see README to change URLs).
+ * CSV paths are relative to the site root (serve this folder with any static host).
+ * Regenerate files with scripts/pull_marketplace.py (defaults match paths below).
  */
 
-const SHEET_CSV_URL =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vR8cbFH69KDvgM4QbH3NN9dV00YCQC9Oq9D2QXTK9n6bAqOK0UYWp5xvscLr-Gcq6g4AKKOYlb4bgcW/pub?gid=1493982002&single=true&output=csv";
-const PHOTO_GALLERY_CSV_URL =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQBSowD7wrpoH7pCeO101ak6sTPuf9N7D-r8e0exZMKplbePvFbubCHTCyaatRXKom_Y3AZ94EnGU4o/pub?gid=1143386091&single=true&output=csv";
+const SHEET_CSV_URL = "/data/exports/boats-sheet.csv";
+const PHOTO_GALLERY_CSV_URL = "/data/exports/photos-sheet.csv";
 const GLOBAL_PHONE = "+704.957.0900";
 const GLOBAL_EMAIL = "info@boatdudedeals.com";
 
@@ -88,7 +87,7 @@ async function loadBoats(){
       return;
     }
 
-    // fetch published Google Sheets boats CSV
+    // fetch boats CSV (static file under /data/exports/)
     const response = await fetch(getCacheBustingURL(SHEET_CSV_URL), { 
       cache: "no-store",
       redirect: "follow",
@@ -96,7 +95,7 @@ async function loadBoats(){
     });
     
     if (!response.ok) {
-      throw new Error(`Failed to load Google Sheets: ${response.status} ${response.statusText}`);
+      throw new Error(`Failed to load boats CSV: ${response.status} ${response.statusText}`);
     }
     
     const csv = await response.text();
@@ -126,9 +125,10 @@ function updateFilteredBoats() {
 async function loadPhotoGalleries(){
   if (PHOTO_GALLERY_CSV_URL && PHOTO_GALLERY_CSV_URL.trim().length > 0) {
     try {
-      const csv = await fetch(PHOTO_GALLERY_CSV_URL, { 
+      const csv = await fetch(getCacheBustingURL(PHOTO_GALLERY_CSV_URL), { 
         cache: "no-store",
-        redirect: "follow"
+        redirect: "follow",
+        mode: "cors"
       }).then(r => r.text());
       const photos = parsePhotoGalleryCSV(csv);
       

@@ -1,20 +1,19 @@
 # The Boat Dude — No‑Build MVP
 
-A clean, mobile‑first gallery to list boats & PWCs. No backend required. The app loads inventory from **Google Sheets “publish to web” CSV URLs** set in `app.js` (`SHEET_CSV_URL`, `PHOTO_GALLERY_CSV_URL`). Legacy sample JSON may still exist under `data/` for reference only.
+A clean, mobile‑first gallery to list boats & PWCs. No backend required. The app loads inventory from **static CSV files** under `data/exports/` (`boats-sheet.csv`, `photos-sheet.csv`). Paths are set in `app.js` as `SHEET_CSV_URL` and `PHOTO_GALLERY_CSV_URL` (defaults: `/data/exports/…`). Legacy sample JSON may still exist under `data/` for reference only.
 
 ## Quick Start (Local dev)
 1. `python3 -m http.server 8080` from this folder.
-2. Open `http://localhost:8080` — inventory loads from the **same published Google Sheet CSVs** as production (`SHEET_CSV_URL` / `PHOTO_GALLERY_CSV_URL` in `app.js`; needs network).
-3. To pull marketplace listings into the same columns your sheet uses, run `scripts/pull_marketplace.py` and **import** the generated CSVs into Google Sheets (then the live site sees updates after publish refreshes).
+2. Open `http://localhost:8080` — inventory loads from `data/exports/boats-sheet.csv` and `data/exports/photos-sheet.csv` (generate or refresh with `scripts/pull_marketplace.py`).
+3. After editing CSVs or re-running the pull script, refresh the browser to see changes.
 
-## Switch to Google Sheets (Phone‑friendly updates)
-This lets anyone update inventory from their phone. The site reads a published CSV of your Sheet.
+## Optional: Google Sheets (publish to web)
+You can keep editing in Sheets and either export CSV into `data/exports/`, or point `app.js` at published CSV URLs instead of `/data/exports/…` paths.
 
 1. **Make a copy of the template:** Import `data/boats-template.csv` into Google Sheets. Keep the column headers as‑is.
 2. **Fill rows** for each listing. Put multiple image URLs in `gallery_urls` separated by commas. (Tip: store photos in Google Drive, then use the shareable file link converted to a direct image link e.g. `https://drive.google.com/uc?export=view&id=FILE_ID`)
-3. **Publish as CSV:** In Google Sheets, go to **File → Share → Publish to web**. Choose **Link**, select the sheet/tab, and choose **CSV** format. Copy the URL.
-4. **Paste URLs into `app.js`:** Set `SHEET_CSV_URL` and `PHOTO_GALLERY_CSV_URL` to your two published CSV links.
-5. **Deploy** the site. Each time you update the Google Sheet, the website reflects the changes on refresh (no rebuild needed).
+3. **Publish as CSV** or **Download → CSV** and copy into `data/exports/`, *or* publish and paste the two CSV URLs into `SHEET_CSV_URL` / `PHOTO_GALLERY_CSV_URL` in `app.js`.
+4. **Deploy** includes committing or uploading the `data/exports/` files (or relying on live Sheet URLs if you switched constants).
 
 > If your Sheet has a `status` column of `sold` the card will gray out. `pending` shows an amber badge. Anything else is considered `available`.
 
@@ -47,9 +46,7 @@ This lets anyone update inventory from their phone. The site reads a published C
 - **CPanel/FTP**: upload all files to your web root (e.g., `public_html`).
 
 ## Pull Inventory From Marketplace (Sheets-Compatible)
-If production currently reads Google Sheets, keep that flow and generate fresh CSVs to paste/import into your two sheet tabs.
-
-CSV outputs default to `data/exports/boats-sheet.csv` and `data/exports/photos-sheet.csv` unless you pass `--boats-out` / `--photos-out`.
+`pull_marketplace.py` writes the same column layout the UI expects. Outputs default to the paths the site loads (`data/exports/boats-sheet.csv`, `data/exports/photos-sheet.csv`) unless you pass `--boats-out` / `--photos-out`.
 
 **Shortest run:** with no URL flags, the script pulls the default OnlyInboards dealer profile and PontoonsOnly `k=boatdudedeals` search (same two feeds as below):
 
